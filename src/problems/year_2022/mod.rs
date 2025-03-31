@@ -2,6 +2,7 @@ use std::io;
 
 mod problem_1;
 mod problem_2;
+mod problem_3;
 
 pub fn year_2022() {
     let mut problem_number = String::new();
@@ -15,6 +16,7 @@ pub fn year_2022() {
     match problem_number {
         1 => problem_1::solve(),
         2 => problem_2::solve(),
+        3 => problem_3::solve(),
         _ => println!("Invalid problem number"),
     }
 }

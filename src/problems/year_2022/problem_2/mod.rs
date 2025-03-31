@@ -1,24 +1,44 @@
 use std::fs::File;
 use std::io::BufRead;
 
+fn get_shape_for_outcome(opponent: &str, outcome: &str) -> &'static str {
+    match (opponent, outcome) {
+        // To lose
+        ("A", "X") => "Scissors",  // Rock beats Scissors
+        ("B", "X") => "Rock",      // Paper beats Rock
+        ("C", "X") => "Paper",     // Scissors beats Paper
+        
+        // To draw
+        ("A", "Y") => "Rock",
+        ("B", "Y") => "Paper",
+        ("C", "Y") => "Scissors",
+        
+        // To win
+        ("A", "Z") => "Paper",     // Paper beats Rock
+        ("B", "Z") => "Scissors",  // Scissors beats Paper
+        ("C", "Z") => "Rock",      // Rock beats Scissors
+        
+        _ => panic!("Invalid input"),
+    }
+}
+
 pub fn calculate_score(val1: &str, val2: &str) -> i32 {
-    let choice_map = |c: &str| match c {
-        "A" | "X" => ("Rock", 1),
-        "B" | "Y" => ("Paper", 2),
-        "C" | "Z" => ("Scissors", 3),
-        _ => panic!("Invalid choice"),
+    let shape_score = |shape: &str| match shape {
+        "Rock" => 1,
+        "Paper" => 2,
+        "Scissors" => 3,
+        _ => panic!("Invalid shape"),
     };
 
-    let (choice1, _ ) = choice_map(val1);
-    let (choice2, choice_score) = choice_map(val2);
-
-    let outcome_score = match (choice1, choice2) {
-        ("Rock", "Scissors") | ("Paper", "Rock") | ("Scissors", "Paper") => 0,
-        ("Rock", "Paper") | ("Paper", "Scissors") | ("Scissors", "Rock") => 6,
-        _ => 3,
+    let outcome_score = match val2 {
+        "X" => 0,  // Lose
+        "Y" => 3,  // Draw
+        "Z" => 6,  // Win
+        _ => panic!("Invalid outcome"),
     };
 
-    choice_score + outcome_score
+    let my_shape = get_shape_for_outcome(val1, val2);
+    shape_score(my_shape) + outcome_score
 }
 
 pub fn solve() {
