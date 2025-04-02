@@ -6,7 +6,6 @@ use std::path::PathBuf;
 
 #[derive(Debug)]
 struct File {
-    name: String,
     size: u64,
 }
 
@@ -84,7 +83,6 @@ fn parse_terminal_output(lines: &[String]) -> Rc<Directory> {
             if parts.len() == 2 {
                 if let Ok(size) = parts[0].parse::<u64>() {
                     let file = File {
-                        name: parts[1].to_string(),
                         size,
                     };
                     current_dir.files.borrow_mut().push(file);

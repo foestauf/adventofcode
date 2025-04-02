@@ -25,46 +25,6 @@ fn is_measurement_cycle(cycle: i32) -> bool {
     cycle == 20 || (cycle > 20 && (cycle - 20) % 40 == 0)
 }
 
-fn solve_part1_old(input_text: &str) -> i32 {
-    let instructions = parse_input(input_text);
-    let mut x = 1;
-    let mut cycle = 1;
-    let mut sum = 0;
-
-    for instruction in instructions {
-        match instruction {
-            Instruction::Noop => {
-                if cycle == 20 || (cycle > 20 && (cycle - 20) % 40 == 0) {
-                    let signal_strength = cycle * x;
-                    println!("Cycle {}: X = {}, Signal Strength = {}", cycle, x, signal_strength);
-                    sum += signal_strength;
-                }
-                cycle += 1;
-            }
-            Instruction::Addx(value) => {
-                // First cycle
-                if cycle == 20 || (cycle > 20 && (cycle - 20) % 40 == 0) {
-                    let signal_strength = cycle * x;
-                    println!("Cycle {}: X = {}, Signal Strength = {}", cycle, x, signal_strength);
-                    sum += signal_strength;
-                }
-                cycle += 1;
-
-                // Second cycle
-                if cycle == 20 || (cycle > 20 && (cycle - 20) % 40 == 0) {
-                    let signal_strength = cycle * x;
-                    println!("Cycle {}: X = {}, Signal Strength = {}", cycle, x, signal_strength);
-                    sum += signal_strength;
-                }
-                cycle += 1;
-                x += value;
-            }
-        }
-    }
-
-    sum
-}
-
 fn solve_part1(input_text: &str) -> i32 {
     let instructions = parse_input(input_text);
     if instructions.is_empty() && !input_text.trim().is_empty() {
