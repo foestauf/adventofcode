@@ -13,6 +13,8 @@ mod problem_10;
 mod problem_11;
 mod problem_12;
 mod problem_13;
+mod problem_14;
+mod problem_15;
 
 pub fn year_2022() {
     let mut problem_number = String::new();
@@ -37,6 +39,8 @@ pub fn year_2022() {
         11 => problem_11::solve(),
         12 => problem_12::solve(),
         13 => problem_13::solve(),
+        14 => problem_14::solve(),
+        15 => problem_15::solve(),
         _ => println!("Invalid problem number"),
     }
 }
